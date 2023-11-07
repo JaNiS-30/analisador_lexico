@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -33,19 +32,25 @@ export default function BasicTable({ table, testWord }: BasicTableProps) {
   let currentRow = 0;
 
   const isValidWord = () => {
-    for (let i = 0; i < testWord.length - 1; i++) {
+    if (testWord.length === 1) {
+      currentRow = 0;
+      return tableData[0][testWord.charCodeAt(0) - 'a'.charCodeAt(0)] !== '';
+    }
+    for (let i = 0; i < testWord.length; i++) {
       const letter = testWord[i];
       const number = letter.charCodeAt(0) - 'a'.charCodeAt(0);
       if (tableData[currentRow][number] === '') {
         return false;
       }
-      currentRow = tableData[currentRow][number] as number;
+      if (i < testWord.length - 1) {
+        currentRow = tableData[currentRow][number] as number;
+      }
     }
     return true;
   };
 
   const valid = isValidWord();
-
+  console.log(valid);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -63,14 +68,7 @@ export default function BasicTable({ table, testWord }: BasicTableProps) {
               key={i}
               style={{
                 backgroundColor:
-                  i === currentRow &&
-                  testWord &&
-                  alphabet[
-                    tableData[currentRow][
-                      testWord[testWord.length - 1].charCodeAt(0) -
-                        'a'.charCodeAt(0)
-                    ] as number
-                  ] == undefined
+                  i === currentRow && testWord && !valid
                     ? 'red'
                     : 'transparent',
               }}
@@ -91,6 +89,7 @@ export default function BasicTable({ table, testWord }: BasicTableProps) {
                         : 'transparent',
                   }}
                 >
+                  {console.log(i, currentRow)}
                   {cellData ? `q${cellData}` : '-'}
                 </TableCell>
               ))}
