@@ -89,7 +89,6 @@ export default function BasicTable({ table, testWord }: BasicTableProps) {
                         : 'transparent',
                   }}
                 >
-                  {console.log(i, currentRow)}
                   {cellData ? `q${cellData}` : '-'}
                 </TableCell>
               ))}
