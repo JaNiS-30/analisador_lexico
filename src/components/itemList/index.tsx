@@ -7,6 +7,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  makeStyles,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
@@ -14,9 +15,15 @@ interface ItemListProps {
   tokens: string[];
   setTokens: (tokens: string[]) => void;
 }
-
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+  },
+});
 function ItemList({ tokens, setTokens }: ItemListProps) {
   const [text, setText] = useState('');
+  const classes = useStyles();
 
   const handleAdd = () => {
     if (!tokens.includes(text)) {
@@ -32,9 +39,9 @@ function ItemList({ tokens, setTokens }: ItemListProps) {
   };
 
   return (
-    <div>
+    <div style={{ padding: '16px' }}>
       <TextField
-        label="Add item"
+        label="Token"
         value={text}
         onChange={(e) => {
           const value = e.target.value;
@@ -43,9 +50,9 @@ function ItemList({ tokens, setTokens }: ItemListProps) {
         }}
       />
       <Button variant="contained" color="primary" onClick={handleAdd}>
-        Add
+        Adicionar
       </Button>
-      <List>
+      <List className={classes.root}>
         {tokens.map((token) => (
           <ListItem key={token}>
             <ListItemText primary={token} />
