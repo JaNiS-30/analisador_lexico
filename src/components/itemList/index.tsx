@@ -8,6 +8,7 @@ import {
   ListItemSecondaryAction,
   IconButton,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
@@ -26,7 +27,7 @@ function ItemList({ tokens, setTokens }: ItemListProps) {
   const classes = useStyles();
 
   const handleAdd = () => {
-    if (!tokens.includes(text)) {
+    if (!tokens.includes(text) && text !== '') {
       const newItem: string = text;
       setTokens([...tokens, newItem]);
       setText('');
@@ -40,7 +41,11 @@ function ItemList({ tokens, setTokens }: ItemListProps) {
 
   return (
     <div style={{ padding: '16px' }}>
+      <Typography style={{ fontSize: 20, padding: '10px' }}>
+        Insira os Tokens
+      </Typography>
       <TextField
+        style={{ marginLeft: '10px' }}
         label="Token"
         value={text}
         onChange={(e) => {

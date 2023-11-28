@@ -7,6 +7,7 @@ import {
   ListItemSecondaryAction,
   IconButton,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -53,7 +54,11 @@ export default function TestWord({
 
   return (
     <div style={{ padding: '16px' }}>
+      <Typography style={{ fontSize: 20, padding: '10px' }}>
+        Valide as palavras
+      </Typography>
       <TextField
+        style={{ marginLeft: '10px' }}
         label="Palavra"
         type="text"
         value={word}
